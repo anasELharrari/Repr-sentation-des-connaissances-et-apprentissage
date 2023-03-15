@@ -1,1 +1,1 @@
-# Repr-sentation-des-connaissances-et-appretissatge
+# Repr-sentation-des-connaissances-et-apprentissage
