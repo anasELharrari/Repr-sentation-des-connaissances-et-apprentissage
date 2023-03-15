@@ -1,0 +1,63 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;   Lab1 : Introduction to LISP ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;First , we create a function that receives a list and returns the lowest value ;;;;;;;;;;;;;;
+;;We can simply ,in this case ,use the min function a predefined function in LISP
+(print (min 4 7 9))
+;One problem remains is that the min function take real numbers as an input.So we will define a function that extract the numbers inside the list and then apply the min function
+
+(defun minValue (l)   ;Defining the function
+(apply 'min l)    ;extracting arfuments then apply min function
+)
+
+(print (minValue (list 4 7 9)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;Now we Create a function that receives a list and an integer and returns "true" if the number exists in the list
+(defun checkfunction (element list) (not (null (member element list))))
+            ;;The function takes element (the integer) and a list as an input
+            ;;the body essentially use the member function which test if the elemnt exists in the list returning true if not null and false otherwise
+(print (checkfunction 2 (list 1 4 6 2)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;;Now we Create a function that receives a list and returns "true" if the list contains a palindrome
+    
+    ;;This is a very popular recursive situation in programming in general , to solve this we need first to check if the first and last element are equal if not then we stop it's not a palindrome.Otherwise , we repeat the same camparaison on the list but without the first and last elements
+(defun palindrome (list) (if (not (eq (first list) (last list))) nil ( palindrome (rest (butlast list)))))
+    ;;One of the other commun way is to use the reverse function to create a new list contains the first one in reverse then comparing the elements of l1 and l2 the list is palindrome if the all elemnts are aquals 
+    (defun palindrome2 (list)
+                (equal list (reverse list)) )
+                
+(print (palindrome (list 'a 'b 'b 'c)))
+(print (palindrome2 (list 'a 'b 'b 'a)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+     ;;Now , let's a little bit with the tic-tac-toe forms
+     ;;first we create a variable that stores this form as the following
+     (setq tic '((x E X) (0 x 0) (E x E)))
+     (print tic)
+     ;;Now , we create a function to check if this type of variable contains an empty space (letter E)
+    (defun check (list) (dolist (x'list) (if (eq 'E' x)) (print "true")))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;;
+    ;;first , we create out tree
+    (setq tr '(a (b () () ) (c (d () () ) (e () ()))))
+    (print tr) ;;let's try to print it
+    ;;as you can see it prints all the tree with even the nil values our goal is to extract just the non nil values
+(defun printtree (list) (if (not (eq (first list) nil)) (print (first list)) 
+                (printtree(rest list))))
+                
+(printtree (setq tr '(a (b () () ) (c (d () () ) (e () ())))) )
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+       ;;We run the following code then we see the result
+(setf tree '(a (b () () ) (c (d () () ) (e () ()))))
+(print (first (rest tree)))
+
+      ;;As we can see it displays b nil nil so it takes the rest of just the first list (a (b () ())) in fact displaying trees properly remains an interesting task in lisp
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
